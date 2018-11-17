@@ -1,13 +1,15 @@
 CC=gcc
 CFLAGS=-I.
+SRC=src
+BUILD=build
 MAIN=main.c
 
-all: main.c
-	$(CC) -o riemann_sum $(MAIN)
+all: $(SRC)/main.c
+	$(CC) -o $(BUILD)/riemann_sum $(SRC)/$(MAIN)
 
 run: riemann_sum
 	make all
-	./riemann_sum
+	$(BUILD)/./riemann_sum
 
 clear: 
-	rm -f *.o riemann_sum
+	rm -f $(BUILD)/*.o $(BUILD)/riemann_sum

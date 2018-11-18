@@ -10,7 +10,7 @@ all: $(SRC)/main.c
 
 run: $(BUILD)/riemann_sum
 	make all
-	$(BUILD)/./riemann_sum 500
+	$(BUILD)/./riemann_sum 1000
 
 clear: 
 	rm -f $(BUILD)/*.o $(BUILD)/riemann_sum

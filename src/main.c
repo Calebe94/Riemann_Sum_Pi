@@ -1,6 +1,3 @@
-//https://softwareengineering.stackexchange.com/questions/279004/general-way-to-convert-a-loop-while-for-to-recursion-or-from-a-recursion-to-a
-//https://stackoverflow.com/questions/52693154/how-to-use-for-loop-to-calculate-midpoint-rule-riemann-sum-in-c
-//http://blog.recursiveprocess.com/2013/03/14/calculate-pi-with-python/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

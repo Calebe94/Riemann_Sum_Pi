@@ -1,59 +1,50 @@
+//https://softwareengineering.stackexchange.com/questions/279004/general-way-to-convert-a-loop-while-for-to-recursion-or-from-a-recursion-to-a
+//https://stackoverflow.com/questions/52693154/how-to-use-for-loop-to-calculate-midpoint-rule-riemann-sum-in-c
+//http://blog.recursiveprocess.com/2013/03/14/calculate-pi-with-python/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-double circle_pi(int rectangles);
+double calc_circle_pi(int rectangles);
 
-double recursion_rect_area(int rectangles, int index, double radius, double width, double height, double midpoint, double rect_area);
+double recursion_circle_pi(int rectangles, int index, double radius, double width, double height, double midpoint, double rect_area);
 
-double calc_rect_area(int rectangles);
+void show_usage();
 
-int main(void)
+int main(int arg, char *args[])
 {
-    printf("Approximations for pi\n");
-    printf("-----------|LOOP|-------------\n");
-    printf("Iterations      Circle Method \n");
-
-    for (int index = 1; index <= 100000; index *= 10)
+    if(arg < 2)
     {
-        double pi_circle = circle_pi(index);
-
-        printf("%10i%20.12f\n", index, pi_circle);
+        show_usage();
     }
-
-    printf("\n");
-
-    printf("Approximations for pi\n");
-    printf("---------|RECURSION|----------\n");
-    printf("Iterations      Circle Method \n");
-
-    for (int index = 1; index <= 100000; index *= 10)
+    else
     {
-        double pi_circle = calc_rect_area(index);
-        printf("%10i%20.12f\n", index, pi_circle);
+        int iterations = atoi(args[1]);
+        if( iterations > 500000 )
+        {
+            show_usage();
+            return 1;
+        }
+        else
+        {
+            printf("\n");
+            printf("Approximation for pi with %10i iterations:%20.12f\n", iterations, calc_circle_pi(iterations));
+        }
     }
-
     return 0; 
 }
 
-double circle_pi(int rectangles)
+void show_usage()
 {
-    double radius = 2.0;
-    double width = radius / (double)rectangles;
-    double rect_area = 0.0;
-    double midpoint, height;
-
-    midpoint = width / 2.0;
-
-    for(int index = 1; index <= rectangles; index++)
-    {
-        height = sqrt((radius * radius) - (midpoint * midpoint));
-        midpoint = midpoint + width;
-        rect_area = rect_area + width * height;
-    }
-    return rect_area;
+        printf("Riemann_Sum_Pi\n");
+        printf("> This programm needs just one command line parameter,\n");
+        printf("> and it's the number o cicles that will be used to find the approximation of pi value.\n");
+        printf("> The execution time increases considerably with cicles greater than 800000, so the program limits the number of iterations at 500000\n");
+        printf("> So the number of cicles should be less than 500000 (half million), Example: build/./riemann_sum 500\n");
+        printf("> build/./riemann_sum 500\n");
 }
 
-double calc_rect_area(int rectangles)
+double calc_circle_pi(int rectangles)
 {
     double radius = 2.0;
     int index = 1;
@@ -64,10 +55,10 @@ double calc_rect_area(int rectangles)
     
     midpoint = width / 2.0;
 
-    return recursion_rect_area(rectangles, index, radius, width, height, midpoint, rect_area);
+    return recursion_circle_pi(rectangles, index, radius, width, height, midpoint, rect_area);
 }
 
-double recursion_rect_area(int rectangles, int index, double radius, double width, double height, double midpoint, double rect_area)
+double recursion_circle_pi(int rectangles, int index, double radius, double width, double height, double midpoint, double rect_area)
 {
     if(!(index <= rectangles))
     {
@@ -82,5 +73,5 @@ double recursion_rect_area(int rectangles, int index, double radius, double widt
     midpoint = midpoint + width;
     rect_area = rect_area + width * height;
     index++;
-    return recursion_rect_area(rectangles, index, radius,  width,  height,  midpoint,  rect_area);
+    return recursion_circle_pi(rectangles, index, radius,  width,  height,  midpoint,  rect_area);
 }
